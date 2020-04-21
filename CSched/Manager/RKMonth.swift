@@ -62,6 +62,7 @@ struct RKMonth: View {
      }
     
     func dateTapped(date: Date) {
+        print("Date tapped: \(date.description)")
         if self.isEnabled(date: date) {
             switch self.rkManager.mode {
             case 0:
