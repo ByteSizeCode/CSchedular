@@ -34,7 +34,6 @@ struct RKViewController: View {
                 if(!self.showingTextField) {Text("Add Event")}
                 else {
                     Text("Done")
-//                    evengtStorage += [my event]
                 }
             } .offset(y: showingTextField ? -30 : 0)
             Spacer(minLength: 10)
@@ -50,6 +49,9 @@ struct RKViewController: View {
                 }
             VStack {
                 Text(self.text)
+                //TODO:
+                //The RKMonth function DateTapped() has the selected date
+                //Use this info to store self.text (the event name) under that date
             }
         }
     }

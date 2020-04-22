@@ -21,7 +21,10 @@
 		6A64B13D244F73F200EA08AD /* RKCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A64B136244F73F200EA08AD /* RKCell.swift */; };
 		6A64B13E244F73F200EA08AD /* RKColorSettings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A64B137244F73F200EA08AD /* RKColorSettings.swift */; };
 		6A64B13F244F73F200EA08AD /* RKDate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A64B138244F73F200EA08AD /* RKDate.swift */; };
-		6A769291244F811900918D11 /* EventManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A769290244F811900918D11 /* EventManager.swift */; };
+		6A769297244FCEAE00918D11 /* TestDayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A769296244FCEAE00918D11 /* TestDayView.swift */; };
+		6A769299244FCEF000918D11 /* EventView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A769298244FCEF000918D11 /* EventView.swift */; };
+		6A7692C02450F55000918D11 /* Priority Queue.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7692BF2450F55000918D11 /* Priority Queue.swift */; };
+		6A7692C32450F59A00918D11 /* Heap.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6A7692C22450F59A00918D11 /* Heap.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,7 +44,11 @@
 		6A64B136244F73F200EA08AD /* RKCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKCell.swift; sourceTree = "<group>"; };
 		6A64B137244F73F200EA08AD /* RKColorSettings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKColorSettings.swift; sourceTree = "<group>"; };
 		6A64B138244F73F200EA08AD /* RKDate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RKDate.swift; sourceTree = "<group>"; };
-		6A769290244F811900918D11 /* EventManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventManager.swift; sourceTree = "<group>"; };
+		6A769295244FCD9500918D11 /* CSched.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = CSched.entitlements; sourceTree = "<group>"; };
+		6A769296244FCEAE00918D11 /* TestDayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestDayView.swift; sourceTree = "<group>"; };
+		6A769298244FCEF000918D11 /* EventView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EventView.swift; sourceTree = "<group>"; };
+		6A7692BF2450F55000918D11 /* Priority Queue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Priority Queue.swift"; sourceTree = "<group>"; };
+		6A7692C22450F59A00918D11 /* Heap.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Heap.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -74,9 +81,11 @@
 		6A64B119244F73C000EA08AD /* CSched */ = {
 			isa = PBXGroup;
 			children = (
+				6A769295244FCD9500918D11 /* CSched.entitlements */,
 				6A64B11A244F73C000EA08AD /* AppDelegate.swift */,
 				6A64B11C244F73C000EA08AD /* SceneDelegate.swift */,
 				6A64B121244F73C000EA08AD /* ContentView.swift */,
+				6A7692C12450F55800918D11 /* Tools */,
 				6A64B131244F73F200EA08AD /* Manager */,
 				6A64B123244F73C300EA08AD /* Assets.xcassets */,
 				6A64B128244F73C300EA08AD /* LaunchScreen.storyboard */,
@@ -102,12 +111,22 @@
 				6A64B133244F73F200EA08AD /* RKManager.swift */,
 				6A64B134244F73F200EA08AD /* RKWeekdayHeader.swift */,
 				6A64B135244F73F200EA08AD /* RKMonth.swift */,
-				6A769290244F811900918D11 /* EventManager.swift */,
 				6A64B136244F73F200EA08AD /* RKCell.swift */,
 				6A64B137244F73F200EA08AD /* RKColorSettings.swift */,
 				6A64B138244F73F200EA08AD /* RKDate.swift */,
+				6A769296244FCEAE00918D11 /* TestDayView.swift */,
+				6A769298244FCEF000918D11 /* EventView.swift */,
 			);
 			path = Manager;
+			sourceTree = "<group>";
+		};
+		6A7692C12450F55800918D11 /* Tools */ = {
+			isa = PBXGroup;
+			children = (
+				6A7692BF2450F55000918D11 /* Priority Queue.swift */,
+				6A7692C22450F59A00918D11 /* Heap.swift */,
+			);
+			path = Tools;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -181,13 +200,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6A769299244FCEF000918D11 /* EventView.swift in Sources */,
 				6A64B13A244F73F200EA08AD /* RKManager.swift in Sources */,
+				6A7692C02450F55000918D11 /* Priority Queue.swift in Sources */,
+				6A769297244FCEAE00918D11 /* TestDayView.swift in Sources */,
 				6A64B11B244F73C000EA08AD /* AppDelegate.swift in Sources */,
 				6A64B139244F73F200EA08AD /* RKViewController.swift in Sources */,
+				6A7692C32450F59A00918D11 /* Heap.swift in Sources */,
 				6A64B13E244F73F200EA08AD /* RKColorSettings.swift in Sources */,
 				6A64B13C244F73F200EA08AD /* RKMonth.swift in Sources */,
 				6A64B13D244F73F200EA08AD /* RKCell.swift in Sources */,
-				6A769291244F811900918D11 /* EventManager.swift in Sources */,
 				6A64B13B244F73F200EA08AD /* RKWeekdayHeader.swift in Sources */,
 				6A64B13F244F73F200EA08AD /* RKDate.swift in Sources */,
 				6A64B120244F73C000EA08AD /* CSched.xcdatamodeld in Sources */,
@@ -328,6 +350,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CSched/CSched.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CSched/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
@@ -338,8 +362,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.CSched;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Debug;
 		};
@@ -347,6 +372,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_ENTITLEMENTS = CSched/CSched.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "-";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"CSched/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
@@ -357,8 +384,9 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.example.CSched;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 2;
 			};
 			name = Release;
 		};

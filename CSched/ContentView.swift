@@ -12,7 +12,7 @@ struct ContentView: View {
 //     @State var showingDetail = false
     
     @State var singleIsPresented = false
-    var rkManager = RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate: Date().addingTimeInterval(60*60*24*365), mode: 0)
+    var rkManager = RKManager(calendar: Calendar.current, minimumDate: Date(), maximumDate: Date().addingTimeInterval(10*(60*60*24*365)), mode: 0)
     
     var body: some View {
         

@@ -14,6 +14,13 @@ struct RKMonth: View {
     
     @ObservedObject var rkManager: RKManager
     
+    @State var presentingModal = false
+    
+    @State var eventName = ""
+    
+    @State var selectedDate = Date.init()
+    @State var dayKeyEventnameValue: [String: String] = [:]
+    
     let monthOffset: Int
     
     let calendarUnitYMD = Set<Calendar.Component>([.year, .month, .day])
@@ -25,10 +32,11 @@ struct RKMonth: View {
     
     @State var showTime = false
     
-    
     var body: some View {
         VStack(alignment: HorizontalAlignment.center, spacing: 10){
             Text(getMonthHeader()).foregroundColor(self.rkManager.colors.monthHeaderColor)
+//            TextField("Enter your name", text: $eventName)
+            Text(self.eventName)
             VStack(alignment: .leading, spacing: 5) {
                 ForEach(monthsArray, id:  \.self) { row in
                     HStack() {
@@ -44,7 +52,8 @@ struct RKMonth: View {
                                         isSelected: self.isSpecialDate(date: column),
                                         isBetweenStartAndEnd: self.isBetweenStartAndEnd(date: column)),
                                         cellWidth: self.cellWidth)
-                                        .onTapGesture { self.dateTapped(date: column) }
+                                        .onTapGesture(count: 2) { self.dateTapped_DoubleTap(date: column)}
+                                        .onTapGesture(count: 1) { self.dateTapped(date: column, allowDeselect: true)}
                                 } else {
                                     Text("").frame(width: self.cellWidth, height: self.cellWidth)
                                 }
@@ -55,13 +64,58 @@ struct RKMonth: View {
                 }
             }.frame(minWidth: 0, maxWidth: .infinity)
         }.background(rkManager.colors.monthBackColor)
+            .sheet(isPresented: $presentingModal) { ModalView(presentedAsModal: self.$presentingModal, input: self.$eventName, chosenDate: self.$selectedDate) }
     }
+    
 
      func isThisMonth(date: Date) -> Bool {
          return self.rkManager.calendar.isDate(date, equalTo: firstOfMonthForOffset(), toGranularity: .month)
      }
     
-    func dateTapped(date: Date) {
+    func dateTapped_DoubleTap(date: Date) {
+        //
+        print("Date tapped: \(date.description)")
+        selectedDate = date //Save to value
+        if self.isEnabled(date: date) {
+            switch self.rkManager.mode {
+            case 0:
+                if self.rkManager.selectedDate != nil &&
+                    self.rkManager.calendar.isDate(self.rkManager.selectedDate, inSameDayAs: date) {
+                    self.rkManager.selectedDate = nil
+                } else {
+                    self.rkManager.selectedDate = date
+                }
+                self.isPresented = false
+            case 1:
+                self.rkManager.startDate = date
+                self.rkManager.endDate = nil
+                self.rkManager.mode = 2
+            case 2:
+                self.rkManager.endDate = date
+                if self.isStartDateAfterEndDate() {
+                    self.rkManager.endDate = nil
+                    self.rkManager.startDate = nil
+                }
+                self.rkManager.mode = 1
+                self.isPresented = false
+            case 3:
+                if self.rkManager.selectedDatesContains(date: date) {
+                    if let ndx = self.rkManager.selectedDatesFindIndex(date: date) {
+                        //rkManager.selectedDates.remove(at: ndx)
+                    }
+                } else {
+//                    self.rkManager.selectedDates.append(date)
+                }
+            default:
+                self.rkManager.selectedDate = date
+                self.isPresented = false
+            }
+        }
+        //
+        presentingModal.toggle()
+    }
+    
+    func dateTapped(date: Date, allowDeselect: Bool) {
         print("Date tapped: \(date.description)")
         if self.isEnabled(date: date) {
             switch self.rkManager.mode {
@@ -88,7 +142,7 @@ struct RKMonth: View {
             case 3:
                 if self.rkManager.selectedDatesContains(date: date) {
                     if let ndx = self.rkManager.selectedDatesFindIndex(date: date) {
-                        rkManager.selectedDates.remove(at: ndx)
+                        if(allowDeselect){rkManager.selectedDates.remove(at: ndx)}
                     }
                 } else {
                     self.rkManager.selectedDates.append(date)
