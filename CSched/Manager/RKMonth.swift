@@ -19,7 +19,10 @@ struct RKMonth: View {
     @State var eventName = ""
     
     @State var selectedDate = Date.init()
+    
     @State var dayKeyEventnameValue: [String: String] = [:]
+    
+    @State var temp = "---"
     
     let monthOffset: Int
     
@@ -64,7 +67,7 @@ struct RKMonth: View {
                 }
             }.frame(minWidth: 0, maxWidth: .infinity)
         }.background(rkManager.colors.monthBackColor)
-            .sheet(isPresented: $presentingModal) { ModalView(presentedAsModal: self.$presentingModal, input: self.$eventName, chosenDate: self.$selectedDate) }
+            .sheet(isPresented: $presentingModal) { ModalView(presentedAsModal: self.$presentingModal, input: self.$eventName, chosenDate: self.$selectedDate, dayKeyEventnameValuePassByRefrence: self.$dayKeyEventnameValue, eventsStoredForToday:self.$temp) }
     }
     
 
