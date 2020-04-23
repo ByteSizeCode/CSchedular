@@ -360,7 +360,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.CSched;
+				PRODUCT_BUNDLE_IDENTIFIER = com.IsaacRaval.CSched;
 				PRODUCT_NAME = CSchedular;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
@@ -382,7 +382,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.example.CSched;
+				PRODUCT_BUNDLE_IDENTIFIER = com.IsaacRaval.CSched;
 				PRODUCT_NAME = CSchedular;
 				SUPPORTS_MACCATALYST = YES;
 				SWIFT_VERSION = 5.0;
