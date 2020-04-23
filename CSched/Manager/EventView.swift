@@ -10,7 +10,7 @@ import SwiftUI
 import Foundation
 
 struct ModalView: View {
-    let ENABLE_SAVE_EVENT_DATE = false
+    let ENABLE_SAVE_EVENT_DATE = false //Keep false until data-saving issues are resolved
     let ENABLE_CLEAR_BUTTON = true
     @State var showingAlert = false
     @Binding var presentedAsModal: Bool
