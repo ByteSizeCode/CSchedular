@@ -10,6 +10,9 @@ import SwiftUI
 import Foundation
 
 struct ModalView: View {
+    let ENABLE_SAVE_EVENT_DATE = true
+    let ENABLE_CLEAR_BUTTON = true
+    @State var showingAlert = false
     @Binding var presentedAsModal: Bool
     @Binding var input: String
     @Binding var chosenDate: Date
@@ -21,7 +24,16 @@ struct ModalView: View {
     
     
     var body: some View {
-        VStack(spacing: 70) {
+        VStack(spacing: ENABLE_CLEAR_BUTTON ? 50 : 70) {
+            if(ENABLE_CLEAR_BUTTON) {
+//                Button("Clear All") {
+//                    self.DeleteAllCalendarEvents()
+//                }.padding(.leading, 600.0)
+                
+                Button(action: {self.showingAlert = true}) {Text("Clear All")}
+                        .padding(.leading, 600.0)
+                       .alert(isPresented:$showingAlert) {Alert(title: Text("Delete All Events From Today?"), message: Text("There is no undo"), primaryButton: .destructive(Text("Delete")) {print(self.DeleteAllCalendarEvents())}, secondaryButton: .cancel())}
+            }
             Text(getTextFromDate(date: chosenDate))
 //            TextField("Type Here", text: $name)
             MultilineTextField("Type Here", text: $name)
@@ -34,12 +46,26 @@ struct ModalView: View {
             
             
             Button("Update") {
+                if(self.ENABLE_SAVE_EVENT_DATE) {
+                    if(UserDefaults.standard.string(forKey: "events") != nil) {
+                        self.eventsStoredForToday = UserDefaults.standard.string(forKey: "events")!
+                    }
+                }
+                
                 self.SaveEventToDate(clearField: false)
                 self.UpdateTextWithEventName()
                 
                 self.listOfEvents = self.eventsStoredForToday.components(separatedBy: "|") //Make an array
                 print(self.listOfEvents)
                 print(self.eventsStoredForToday)
+                
+                self.name = "" //Clear TextField after submission
+                
+                if(self.ENABLE_SAVE_EVENT_DATE) {
+                    //Save dict in string format to string to userDefaults
+                    var data = UserDefaults.standard.set(self.eventsStoredForToday, forKey: "events")
+                }
+                
 //                self.ListWhatWeHave()
             }
             
@@ -55,6 +81,12 @@ struct ModalView: View {
                 }
             }
         }
+    }
+    
+    func DeleteAllCalendarEvents() {
+        UserDefaults.standard.removeObject(forKey: "events")
+        self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)] = ""
+        UpdateTextWithEventName()
     }
     
     func UpdateTextWithEventName() {

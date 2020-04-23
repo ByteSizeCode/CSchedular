@@ -13,7 +13,7 @@ struct RKViewController: View {
     
     @Binding var isPresented: Bool
     @State var showingTextField = false
-    @State private var text: String = ""
+    @State private var MiniNoteText: String = ""
 //    let evengtStorage: Dictionary<<#Key: Hashable#>, Any> //["date": "event"]
     var evengtStorage: [String: String] = ["key1": "Value 1"]
     
@@ -22,7 +22,7 @@ struct RKViewController: View {
     var body: some View {
         VStack {
             HStack() {
-                TextField("Enter Event Name", text: self.$text)
+                TextField("Enter Event Name", text: self.$MiniNoteText)
             }
             .opacity(showingTextField ? 100 : 0)
             .padding(.leading, 9.0)
@@ -31,7 +31,7 @@ struct RKViewController: View {
             Button(action: {
                 self.showingTextField.toggle()
             }) {
-                if(!self.showingTextField) {Text("Add Event")}
+                if(!self.showingTextField) {Text("Add MiniNote")}
                 else {
                     Text("Done")
                 }
@@ -48,7 +48,7 @@ struct RKViewController: View {
                     }
                 }
             VStack {
-                Text(self.text)
+                Text(self.MiniNoteText)
                 //TODO:
                 //The RKMonth function DateTapped() has the selected date
                 //Use this info to store self.text (the event name) under that date
