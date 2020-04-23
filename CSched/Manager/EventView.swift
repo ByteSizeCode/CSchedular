@@ -45,31 +45,11 @@ struct ModalView: View {
             .frame(height: 200)
             
             
-            Button("Update") {
-                if(self.ENABLE_SAVE_EVENT_DATE) {
-                    if(UserDefaults.standard.string(forKey: "events") != nil) {
-                        self.eventsStoredForToday = UserDefaults.standard.string(forKey: "events")!
-                    }
-                }
-                
-                self.SaveEventToDate(clearField: false)
-                self.UpdateTextWithEventName()
-                
-                self.listOfEvents = self.eventsStoredForToday.components(separatedBy: "|") //Make an array
-                print(self.listOfEvents)
-                print(self.eventsStoredForToday)
-                
-                self.name = "" //Clear TextField after submission
-                
-                if(self.ENABLE_SAVE_EVENT_DATE) {
-                    //Save dict in string format to string to userDefaults
-                    var data = UserDefaults.standard.set(self.eventsStoredForToday, forKey: "events")
-                }
-                
-//                self.ListWhatWeHave()
+            Button("Add Event") {
+                self.Reload_UpdateData()
             }
             
-            Button("dismiss") {
+            Button("Back") {
                 self.SaveEventToDate(clearField: true)
                 
 //                Text(self.dayKeyEventnameValue[self.getTextFromDate(date: self.chosenDate)]!)
@@ -81,12 +61,41 @@ struct ModalView: View {
                 }
             }
         }
+        .onAppear() {
+            self.Reload_UpdateData()
+            print("Updating Data")
+        }
+    }
+    
+    func Reload_UpdateData() {
+        if(self.ENABLE_SAVE_EVENT_DATE) {
+            if(UserDefaults.standard.string(forKey: "events") != nil) {
+                self.eventsStoredForToday = UserDefaults.standard.string(forKey: "events")!
+            }
+        }
+        
+        self.SaveEventToDate(clearField: false)
+        self.UpdateTextWithEventName()
+        
+        self.listOfEvents = self.eventsStoredForToday.components(separatedBy: "|") //Make an array
+        print(self.listOfEvents)
+        print(self.eventsStoredForToday)
+        
+        self.name = "" //Clear TextField after submission
+        
+        if(self.ENABLE_SAVE_EVENT_DATE) {
+            //Save dict in string format to string to userDefaults
+            var data = UserDefaults.standard.set(self.eventsStoredForToday, forKey: "events")
+        }
+                        
+        //                self.ListWhatWeHave()
     }
     
     func DeleteAllCalendarEvents() {
         UserDefaults.standard.removeObject(forKey: "events")
         self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)] = ""
         UpdateTextWithEventName()
+        self.Reload_UpdateData()
     }
     
     func UpdateTextWithEventName() {
