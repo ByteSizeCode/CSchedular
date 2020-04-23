@@ -16,31 +16,35 @@ struct ModalView: View {
     @Binding var dayKeyEventnameValuePassByRefrence: [String: String]
     @State public var name: String = ""
     @Binding var eventsStoredForToday:String
+    @State var listOfEvents:[String] = []
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
     
     var body: some View {
-        VStack(spacing: 100) {
+        VStack(spacing: 70) {
             Text(getTextFromDate(date: chosenDate))
-            TextField("Type Here", text: $name)
+//            TextField("Type Here", text: $name)
+            MultilineTextField("Type Here", text: $name)
             Text(eventsStoredForToday)
             
+            List(listOfEvents) { item in
+              Text(item)
+            }
+            .frame(height: 200)
+            
+            
             Button("Update") {
-//                guard case let self.eventsStoredForToday = self.dayKeyEventnameValue[self.getTextFromDate(date: self.chosenDate)] else {
-//                    print("didn't work")
-//                    return
-//                }
-                if(self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)] != nil) {
-                    self.eventsStoredForToday = self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)]!
-                }
+                self.SaveEventToDate(clearField: false)
+                self.UpdateTextWithEventName()
+                
+                self.listOfEvents = self.eventsStoredForToday.components(separatedBy: "|") //Make an array
+                print(self.listOfEvents)
+                print(self.eventsStoredForToday)
+//                self.ListWhatWeHave()
             }
             
             Button("dismiss") {
-                self.eventsStoredForToday = "---"
-                if(!self.name.isEmpty) {
-                    self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)] = self.name //Save textfield event name to date
-                    print("'\(self.name)'")
-                }
+                self.SaveEventToDate(clearField: true)
                 
 //                Text(self.dayKeyEventnameValue[self.getTextFromDate(date: self.chosenDate)]!)
 //                self.dayKeyEventnameValue[self.getTextFromDate(date: self.chosenDate)]! += self.name //Save by reference event name for lookup by date
@@ -50,6 +54,32 @@ struct ModalView: View {
                     self.input = self.name
                 }
             }
+        }
+    }
+    
+    func UpdateTextWithEventName() {
+        if(self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)] != nil) {
+    //                    //Show in Text()
+            self.eventsStoredForToday = self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)]!
+    //                      self.name = self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)]!
+        }
+    }
+    
+    func SaveEventToDate(clearField: Bool) {
+        if(!self.name.isEmpty) {
+            
+            if(self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)] == nil) {
+                self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)] = self.name //Save textfield event name to date
+            }
+            else { //Add with a delimeter
+                self.dayKeyEventnameValuePassByRefrence[self.getTextFromDate(date: self.chosenDate)]! += "|\(self.name)" //Save textfield event name to date
+            }
+            
+             
+            print("'\(self.name)'")
+        }
+        if(clearField) {
+            self.eventsStoredForToday = "---"
         }
     }
     
