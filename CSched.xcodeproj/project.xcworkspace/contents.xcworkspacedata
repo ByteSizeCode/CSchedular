@@ -2,6 +2,6 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "self:CSched.xcodeproj">
+      location = "self:/Users/Isaac/Downloads/CSched/CSched.xcodeproj">
    </FileRef>
 </Workspace>
